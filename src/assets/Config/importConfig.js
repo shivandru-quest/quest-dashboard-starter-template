@@ -26,40 +26,45 @@ import content2img3 from "../Images/content2img3.svg";
 import stick from "../Images/stick.svg";
 import plusIcon from "../Images/plusIcon.png";
 import comingsoon from "../Images/comingsoon.webp";
-
+import homeLogo from "../Images/home.svg";
+import runLogo from "../Images/run.svg";
+import brandLogo2 from "../Images/brandLogo2.png";
 export const importConfig = {
-    brandLogo: brandLogo,
-    routesIcons: {
-        settingIcon,
-        bookIcon,
-        adminIcon,
-        helpIcon,
-        logoutIcon,
-        dashboardIcon,
-        upgradeIcon,
-        userIcon,
-        menuIcon
-    },
-    settings: {
-        userImage,
-        uploadIcon
-    },
-    home: {
-        menuBar,
-        img1,
-        img2,
-        img3,
-        img4,
-        img5,
-        homeArrow,
-        msg2,
-        msg3,
-        appLogos,
-        content2img1,
-        content2img2,
-        content2img3,
-        stick,
-        plusIcon,
-        comingsoon
-    }
-}
+  brandLogo: brandLogo,
+  brandLogo2: brandLogo2,
+  routesIcons: {
+    settingIcon,
+    bookIcon,
+    adminIcon,
+    helpIcon,
+    logoutIcon,
+    dashboardIcon,
+    upgradeIcon,
+    userIcon,
+    menuIcon,
+    homeLogo,
+    runLogo,
+  },
+  settings: {
+    userImage,
+    uploadIcon,
+  },
+  home: {
+    menuBar,
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    homeArrow,
+    msg2,
+    msg3,
+    appLogos,
+    content2img1,
+    content2img2,
+    content2img3,
+    stick,
+    plusIcon,
+    comingsoon,
+  },
+};

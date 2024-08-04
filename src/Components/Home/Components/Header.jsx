@@ -5,11 +5,6 @@ import { animation1, animation10, animation2, animation3, animation4, animation5
 
 
 const Header = () => {
-
-
-
-
-
     return (
         <div>
             <motion.div className='pt-[57px] md:pt-[120px] px-5 md:px-[60px] w-full duration-200'>

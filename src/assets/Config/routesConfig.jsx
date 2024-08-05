@@ -8,6 +8,7 @@ import {
   SprintsSvg,
   ProjectSvg,
   SettingsSvg,
+  downArrow,
 } from "../../Components/Common/SideBarSvg";
 import GetStartedComponent from "../../Components/GetStarted/GetStarted";
 import Login from "../../Components/Login/Login";
@@ -100,9 +101,10 @@ export const routesConfig = [
     path: "/sprints",
     name: "Sprints",
     logo: SprintsSvg(),
+    sideLogo: downArrow("#2C2C2C"),
     component: (
       <ProviderConfig showTag={false}>
-        <DashboardWrapper selectdRoute={"insights"}>
+        <DashboardWrapper selectdRoute={"sprints"}>
           <Sprints />
         </DashboardWrapper>
       </ProviderConfig>
@@ -114,9 +116,10 @@ export const routesConfig = [
     path: "/projects",
     name: "Projects",
     logo: ProjectSvg(),
+    sideLogo: downArrow("#2C2C2C"),
     component: (
       <ProviderConfig showTag={false}>
-        <DashboardWrapper selectdRoute={"insights"}>
+        <DashboardWrapper selectdRoute={"projects"}>
           <Projects />
         </DashboardWrapper>
       </ProviderConfig>

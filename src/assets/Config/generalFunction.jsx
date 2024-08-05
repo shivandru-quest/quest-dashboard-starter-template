@@ -29,13 +29,8 @@ export const generalFunction = {
     },
 
     logout: () => {
-        let cookies = new Cookies();
-        cookies.remove("questUserId");
-        cookies.remove("questUserToken");
-        cookies.remove("questUserCredentials");
-        localStorage.removeItem("questUserId");
-        localStorage.removeItem("questUserToken");
-        localStorage.removeItem("questUserCredentials");
+        localStorage.removeItem("userCredentials");
+        localStorage.removeItem("UserAnswers");
     },
 
     createUrl: (apiString) => {

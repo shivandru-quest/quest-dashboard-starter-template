@@ -6,14 +6,7 @@ import { importConfig } from "../../assets/Config/importConfig";
 import { FeedbackWorkflow, Search, Survey } from "@questlabs/react-sdk";
 import FeedbackButton from "./FeedbackButton";
 import { generalFunction } from "../../assets/Config/generalFunction";
-import {
-  upgrade,
-  bookACall,
-  logOutBtn,
-  referFriends,
-  userIcon,
-  ArrowRight,
-} from "./SideBarSvg";
+import { bookACall, logOutBtn, userIcon, ArrowRight } from "./SideBarSvg";
 import ReferralPopup from "../Referral/ReferralPopup";
 import { ThemeContext } from "./AppContext";
 import { mainConfig } from "../../assets/Config/appConfig";
@@ -25,11 +18,20 @@ import HelphubComponent from "./HelphubComponent";
 export default function DashboardWrapper({ children, selectdRoute }) {
   const [openPopup, setOpenPopup] = useState(false);
   const [quesNoFeed, setQuesNoFeed] = useState(1);
-
+  const [showFeedbackSection, setShowFeedbackSection] = useState(false);
+  const [isSidebarCompressed, setIsSidebarCompressed] = useState(false);
   const { theme, setTheme, bgColors, appConfig, checked, setChecked } =
     useContext(ThemeContext);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
+  function getUser() {
+    const userAnswers = localStorage.getItem("UserAnswers");
+    if (userAnswers) {
+      const paprsedData = JSON.parse(userAnswers);
+      setUser(paprsedData);
+    }
+    return null;
+  }
   const toggleTheme = () => {
     if (theme === "dark") {
       setTheme("light");
@@ -51,8 +53,6 @@ export default function DashboardWrapper({ children, selectdRoute }) {
     toggleTheme();
   };
 
-  const [showFeedbackSection, setShowFeedbackSection] = useState(false);
-
   const diffWithDate = (date, type) => {
     const inputDate = new Date().getTime();
     const targetDate = new Date(date).getTime();
@@ -63,11 +63,12 @@ export default function DashboardWrapper({ children, selectdRoute }) {
     );
     return differenceInDays;
   };
-
+  const toggleSidebar = () => {
+    setIsSidebarCompressed(!isSidebarCompressed);
+  };
   useEffect(() => {
     let websiteVisit = localStorage.getItem("websiteVisit");
     let feedbackOpen = localStorage.getItem("feedbackOpen");
-
     const websiteVisitDiffDate = diffWithDate(websiteVisit, "days");
     const feedbackOpenDiffDate = diffWithDate(feedbackOpen, "hours");
 
@@ -80,14 +81,15 @@ export default function DashboardWrapper({ children, selectdRoute }) {
       localStorage.setItem("websiteVisit", new Date());
     }
   }, []);
-
+  useEffect(() => {
+    getUser();
+  }, []);
   const closeSurveyPopup = (e) => {
     if (document.getElementById("clickbox_sreferral").contains(e.target)) {
     } else {
       setShowFeedbackSection(false);
     }
   };
-
   return (
     <div
       className="flex relative w-screen h-screen bg-customShade-4 transition-all ease-in delay-[40]"
@@ -96,7 +98,19 @@ export default function DashboardWrapper({ children, selectdRoute }) {
         position: "relative",
       }}
     >
-      <FeedbackButton />
+      <button
+        onClick={toggleSidebar}
+        className={`toggle-sidebar-button ${
+          isSidebarCompressed ? "compressed" : ""
+        } border`}
+      >
+        <img
+          src={ArrowRight("#181818")}
+          alt="arrowRight"
+          className={`arrow-icon ${isSidebarCompressed ? "" : "rotate"}`}
+        />
+      </button>
+      {/* <FeedbackButton /> */}
       <HelphubComponent />
 
       {openPopup && <ReferralPopup setOpenPopup={() => setOpenPopup(false)} />}
@@ -107,7 +121,9 @@ export default function DashboardWrapper({ children, selectdRoute }) {
       )}
 
       <nav
-        className="s_nav_container"
+        className={`s_nav_container ${
+          isSidebarCompressed ? "s_nav_container_compressed" : ""
+        }`}
         style={{
           backgroundColor: bgColors[`${theme}-primary-bg-color-3`],
         }}
@@ -148,22 +164,27 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                   !routes.hidden &&
                   routes.isUpper && (
                     <li
-                      className={`s_nav_menu_item ${
+                      className={` s_nav_menu_item ${
                         window.location.href.includes(routes.path) &&
                         "s_nav_active"
                       }`}
                       key={index}
                     >
                       <Link to={routes.path} className="s_nav_menu_link">
-                        <div>{routes.logo}</div>
-                        <p>{routes.name}</p>
+                        <div className="flex items-center justify-center gap-2">
+                          <div>{routes.logo}</div>
+                          <p>{routes.name}</p>
+                        </div>
+                        <div>
+                          {routes.sideLogo && <img src={routes.sideLogo} />}
+                        </div>
                       </Link>
                     </li>
                   )
               )}
             </ul>
           </div>
-          <div className="s_nav_menu_cont-lower">
+          <div className={`s_nav_menu_cont-lower`}>
             <ul className="s_nav_menu">
               <li className={"profileContSecondary toggle-btn"}>
                 <div className={"profileContThird"} onClick={handleToggle}>
@@ -176,9 +197,11 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                     />
                     <span className={"slider2"} />
                   </label>
-                  <div className={"profileTitle3"}>
-                    {checked ? "Light Mode" : "Dark Mode"}
-                  </div>
+                  {!isSidebarCompressed && (
+                    <div className={"profileTitle3"}>
+                      {checked ? "Light Mode" : "Dark Mode"}
+                    </div>
+                  )}
                 </div>
               </li>
 
@@ -189,17 +212,19 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                     window.open(mainConfig.CALENDLY_LINK, "_blank");
                   }}
                 >
-                  <div>{bookACall()}</div>
-                  <p
-                    style={{
-                      color: "#535353",
-                      fontFamily: "Figtree",
-                      fontSize: "0.875rem",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Book a call
-                  </p>
+                  <div className="flex justify-center items-center gap-2">
+                    <div>{bookACall()}</div>
+                    <p
+                      style={{
+                        color: "#535353",
+                        fontFamily: "Figtree",
+                        fontSize: "0.875rem",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Book a call
+                    </p>
+                  </div>
                 </Link>
               </li>
 
@@ -211,34 +236,46 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                     navigate("/login");
                   }}
                 >
-                  <div>{logOutBtn()}</div>
-                  <p>Logout</p>
+                  <div className="flex items-center justify-center gap-2">
+                    <div>{logOutBtn()}</div>
+                    <p>Logout</p>
+                  </div>
                 </div>
               </li>
 
-              <li className="flex items-center justify-between">
+              <li className={`flex items-center justify-between`}>
                 <div className="s_nav_menu_link cursor-pointer">
-                  <div className="border border-[#757575] rounded-full flex justify-center items-center h-[2.25rem] w-[2.25rem] p-2">
-                    <img
-                      src={userIcon("#757575")}
-                      alt="User Icon"
-                      className="object-fit: cover min-w-full h-full rounded-full"
-                    />
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="border border-[#757575] rounded-full flex justify-center items-center h-[2.25rem] w-[2.25rem] p-2">
+                      <img
+                        src={userIcon("#757575")}
+                        alt="User Icon"
+                        className="object-fit: cover min-w-full h-full rounded-full"
+                      />
+                    </div>
+                    <p
+                      className={`nav_menu_link_username`}
+                      style={{
+                        color: theme === "light" ? "#535353" : "#757575",
+                      }}
+                    >
+                      {user?.firstname}
+                    </p>
                   </div>
-                  <p
-                    className={`nav_menu_link_username`}
-                    style={{ color: theme === "light" ? "#535353" : "#757575" }}
+                </div>
+                {!isSidebarCompressed && (
+                  <div
+                    style={{
+                      paddingRight: "1rem",
+                    }}
                   >
-                    Alex
-                  </p>
-                </div>
-                <div style={{ paddingRight: "1rem" }}>
-                  {theme === "light" ? (
-                    <img src={ArrowRight("#181818")} alt="arrowRight" />
-                  ) : (
-                    <img src={ArrowRight("#757575")} alt="arrowRight" />
-                  )}
-                </div>
+                    {theme === "light" ? (
+                      <img src={ArrowRight("#181818")} alt="arrowRight" />
+                    ) : (
+                      <img src={ArrowRight("#757575")} alt="arrowRight" />
+                    )}
+                  </div>
+                )}
               </li>
             </ul>
             <div

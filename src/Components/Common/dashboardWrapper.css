@@ -391,6 +391,7 @@ body.dark .switch::before {
 
 .s_nav_menu_link {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
   flex: 1 0 0;
@@ -624,4 +625,69 @@ input:checked + .slider2:before {
 
 .dashboard-page > .get-started {
   padding: 0px 49px 0 20px;
+}
+.toggle-sidebar-button {
+  position: absolute;
+  top: 1rem;
+  z-index: 1000;
+  border: 1px solid #2c2c2c;
+  background-color: #fff;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.toggle-sidebar-button.compressed {
+  left: 4.5rem;
+}
+
+.toggle-sidebar-button:not(.compressed) {
+  left: 13.8rem;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/*Compressed nav code*/
+
+.s_nav_container_compressed {
+  width: 5.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.s_nav_container_compressed .s_nav_company_name,
+.s_nav_container_compressed .s_nav_menu_item p,
+.s_nav_container_compressed .s_nav_menu_cont-lower p {
+  display: none;
+}
+
+.s_nav_container_compressed .s_nav_menu_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+}
+
+.s_nav_container_compressed .s_nav_menu_item div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.right-component.expanded {
+  width: calc(100vw - 5.75rem);
+}
+
+.right-component {
+  transition: width 0.5s ease-in-out;
 }

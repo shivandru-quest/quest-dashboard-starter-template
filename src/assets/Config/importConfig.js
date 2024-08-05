@@ -29,6 +29,7 @@ import comingsoon from "../Images/comingsoon.webp";
 import homeLogo from "../Images/home.svg";
 import runLogo from "../Images/run.svg";
 import brandLogo2 from "../Images/brandLogo2.png";
+import arrowDown from "../Images/arrowDown.svg";
 export const importConfig = {
   brandLogo: brandLogo,
   brandLogo2: brandLogo2,
@@ -44,6 +45,7 @@ export const importConfig = {
     menuIcon,
     homeLogo,
     runLogo,
+    arrowDown,
   },
   settings: {
     userImage,

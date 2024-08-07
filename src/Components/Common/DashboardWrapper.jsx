@@ -20,18 +20,30 @@ export default function DashboardWrapper({ children, selectdRoute }) {
   const [quesNoFeed, setQuesNoFeed] = useState(1);
   const [showFeedbackSection, setShowFeedbackSection] = useState(false);
   const [isSidebarCompressed, setIsSidebarCompressed] = useState(false);
+  const [activePath, setActivePath] = useState(window.location.pathname);
   const { theme, setTheme, bgColors, appConfig, checked, setChecked } =
     useContext(ThemeContext);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const handleLinkClickSideLogo = (path) => {
+    if (activePath === path) {
+      setActivePath("");
+    } else {
+      setActivePath(path);
+    }
+  };
   function getUser() {
     const userAnswers = localStorage.getItem("UserAnswers");
     if (userAnswers) {
       const paprsedData = JSON.parse(userAnswers);
       setUser(paprsedData);
+    } else {
+      navigate("/login");
     }
-    return null;
   }
+  const userName = user
+    ? user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1)
+    : "";
   const toggleTheme = () => {
     if (theme === "dark") {
       setTheme("light");
@@ -128,31 +140,36 @@ export default function DashboardWrapper({ children, selectdRoute }) {
           backgroundColor: bgColors[`${theme}-primary-bg-color-3`],
         }}
       >
-        <div className="s_nav_header_cont">
+        <div
+          className={`s_nav_header_cont ${
+            isSidebarCompressed ? "items-center" : "items-start"
+          }`}
+        >
           <div className="s_nav_company_logo_cont">
-            <div className="s_nav_company_img">
-              {theme === "light" ? (
-                <img
-                  src={importConfig.brandLogo}
-                  alt="brandLogoLight"
-                  className="s_nav_company_img_light"
-                />
-              ) : (
-                <img
-                  src={importConfig.brandLogo2}
-                  alt="brandLogoLight"
-                  className="s_nav_company_img_dark"
-                />
-              )}
+            <div className="border border-[#757575] rounded-full flex justify-center items-center h-[2.25rem] w-[2.25rem] p-2">
+              <img
+                src={userIcon("#757575")}
+                alt="User Icon"
+                className="object-fit: cover min-w-full h-full rounded-full"
+              />
             </div>
             <div className="s_nav_company_name">
               <p
+                className={`nav_menu_link_username`}
                 style={{
-                  color: bgColors[`${theme}-color-premitive-grey-5`],
+                  color: theme === "light" ? "#2F54EB" : "#757575",
                 }}
               >
-                {appConfig?.QUEST_ENTITY_NAME}
+                {userName}
               </p>
+              <span
+                className="font-[600] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem]"
+                style={{
+                  color: theme === "light" ? "#030723" : "#757575",
+                }}
+              >
+                Developer
+              </span>
             </div>
           </div>
         </div>
@@ -164,19 +181,39 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                   !routes.hidden &&
                   routes.isUpper && (
                     <li
-                      className={` s_nav_menu_item ${
+                      className={`s_nav_menu_item ${
                         window.location.href.includes(routes.path) &&
                         "s_nav_active"
                       }`}
                       key={index}
+                      onClick={() => handleLinkClickSideLogo(routes.path)}
                     >
                       <Link to={routes.path} className="s_nav_menu_link">
-                        <div className="flex items-center justify-center gap-2">
-                          <div>{routes.logo}</div>
-                          <p>{routes.name}</p>
-                        </div>
-                        <div>
-                          {routes.sideLogo && <img src={routes.sideLogo} />}
+                        <div className="w-full flex flex-col">
+                          <div className="flex justify-between items-center w-full">
+                            <div className="flex items-center justify-center gap-2">
+                              <div>{routes.logo}</div>
+                              <p>{routes.name}</p>
+                            </div>
+                            <div>
+                              {!isSidebarCompressed && routes.sideLogo && (
+                                <img
+                                  src={routes.sideLogo}
+                                  className={`side-logo ${
+                                    activePath === routes.path ? "rotate" : ""
+                                  }`}
+                                  alt="side logo"
+                                />
+                              )}
+                            </div>
+                          </div>
+                          {!isSidebarCompressed &&
+                            activePath === routes.path &&
+                            routes.sideLogo && (
+                              <div className="h-10 w-full flex justify-center items-center">
+                                content
+                              </div>
+                            )}
                         </div>
                       </Link>
                     </li>
@@ -238,12 +275,12 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                 >
                   <div className="flex items-center justify-center gap-2">
                     <div>{logOutBtn()}</div>
-                    <p>Logout</p>
+                    <p id="nav_logout">Logout</p>
                   </div>
                 </div>
               </li>
 
-              <li className={`flex items-center justify-between`}>
+              {/* <li className={`flex items-center justify-between`}>
                 <div className="s_nav_menu_link cursor-pointer">
                   <div className="flex items-center justify-center gap-2">
                     <div className="border border-[#757575] rounded-full flex justify-center items-center h-[2.25rem] w-[2.25rem] p-2">
@@ -276,7 +313,7 @@ export default function DashboardWrapper({ children, selectdRoute }) {
                     )}
                   </div>
                 )}
-              </li>
+              </li> */}
             </ul>
             <div
               className="text-xs text-[#939393] mt-3 w-full flex items-center justify-center cursor-pointer"

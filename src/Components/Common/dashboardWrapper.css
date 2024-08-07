@@ -288,7 +288,6 @@ body.dark .switch::before {
   padding: 0px 20px;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   gap: 8px;
   flex-shrink: 0;
   align-self: stretch;
@@ -299,6 +298,7 @@ body.dark .switch::before {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  /* border: 1px solid black; */
 }
 
 .s_nav_company_img {
@@ -325,17 +325,19 @@ body.dark .switch::before {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .s_nav_company_name > p {
-  color: var(--Neutral-Black-400, #2c2c2c);
   font-family: Figtree;
-  font-size: 20px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 30px;
+  line-height: 1.5rem;
   letter-spacing: -0.4px;
   text-align: center;
+  /* border: 1px solid black; */
 }
 
 /* for navigations */
@@ -407,15 +409,7 @@ body.dark .switch::before {
   line-height: 1.25rem;
 }
 .s_nav_menu_link p:hover {
-  background: linear-gradient(
-    89deg,
-    #6820ed -12.11%,
-    #b20fd0 40.47%,
-    #ef5b77 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0065ff;
 }
 .nav_menu_link_username {
   font-family: Figtree;
@@ -426,43 +420,35 @@ body.dark .switch::before {
 }
 .s_nav_active {
   border-radius: var(--4, 0.25rem);
-  background: linear-gradient(
-    89deg,
-    #6820ed 12.11%,
-    #b20fd0 40.47%,
-    #ef5b77 100%
-  );
+  background: #f4f4ff;
 }
 
 .s_nav_active .s_nav_menu_link {
   margin-left: -2px;
 }
-.s_nav_menu_item :hover {
+.s_nav_menu_item p :hover {
   border-radius: var(--4, 0.25rem);
-  background: linear-gradient(
-    89deg,
-    rgba(104, 32, 237, 0.16)-12.11%,
-    rgba(178, 15, 208, 0.16) 40.47%,
-    rgba(239, 91, 119, 0.16) 100%
-  );
+  background: #f4f4ff;
 }
+
 .s_nav_active p {
-  color: #ffffff;
+  color: #0065ff;
   font-family: "Figtree";
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 1.25rem;
 }
-.s_nav_menu_item:hover svg path {
-  fill: #7200eb;
+.s_nav_menu_item :hover svg path {
+  fill: #0065ff;
 }
 .s_nav_active svg path {
-  fill: #fff;
+  fill: #0065ff;
 }
-.s_nav_active:hover {
-  background: none;
-  border-radius: none;
+#nav_logout:hover {
+  color: #ed0a34;
+  font-weight: 600;
+  line-height: 1.25rem;
 }
 .profileCont {
   display: flex;
@@ -612,15 +598,6 @@ input:checked + .slider2:before {
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
-  background: linear-gradient(
-    89deg,
-    #6820ed -12.11%,
-    #b20fd0 40.47%,
-    #ef5b77 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .dashboard-page > .get-started {
@@ -650,6 +627,13 @@ input:checked + .slider2:before {
 }
 
 .arrow-icon.rotate {
+  transform: rotate(180deg);
+}
+.side-logo {
+  transition: transform 0.3s ease;
+}
+
+.side-logo.rotate {
   transform: rotate(180deg);
 }
 

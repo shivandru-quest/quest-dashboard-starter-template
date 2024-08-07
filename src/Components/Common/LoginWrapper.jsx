@@ -19,27 +19,6 @@ export default function LoginWrapper({ children }) {
   }
   return (
     <div className="flex h-screen w-full">
-      {/* <div
-                className={`hidden md:flex flex-col justify-center items-center text-center md:w-1/2 py-7 px-4`}
-                style={{
-                    background: bgColors[`${theme}-primary-bg-color-0`],
-                }}
-            >
-                <div className="w-[100px] h-[100px] rounded-[56px] overflow-hidden">
-                    <img
-                        src={appConfig.BRAND_LOGO || ""}
-                        alt=""
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-
-                <p className="text-center text-3xl font-semibold font-['Figtree'] mt-6 text-white">
-                    {contentConfig?.login?.heading}
-                </p>
-                <p className="text-center text-xl font-normal font-['Figtree'] leading-[30px] text-[#E0E0E0]">
-                    {contentConfig?.login?.description}
-                </p>
-            </div> */}
       <div className="hidden md:flex flex-col text-center md:w-1/2  w-1/2 justify-center items-center">
         <div
           className="w-[38rem] h-[50rem] flex flex-col justify-between items-start rounded-[1.5rem] border-r-[1px] py-[4rem] px-[2.88rem]"

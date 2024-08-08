@@ -559,8 +559,6 @@ input:checked + .slider2:before {
   padding: 20px 40px;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 1.5px solid #ececec; */
-  /* background: var(--Neutral-White-100, #fff); */
 }
 
 .dashboard-page-header > p {

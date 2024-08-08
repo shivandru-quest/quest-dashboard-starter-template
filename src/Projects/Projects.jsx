@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../Components/Common/AppContext";
-import Admin from "../Components/Admin/Admin";
 import { importConfig } from "../assets/Config/importConfig";
 import ProjectModal from "./ProjectModal";
 const Projects = () => {
@@ -26,8 +25,7 @@ const Projects = () => {
           Projects
         </p>
       </div>
-      {/* <Admin /> */}
-      <div className="w-full h-screen flex flex-col gap-8 justify-center items-center">
+      <div className="w-full h-[calc(100vh-68px)] flex flex-col gap-8 justify-center items-center">
         <div className="h-[9.38rem] w-[11.1rem]">
           <img
             src={importConfig.project.projectPageLogo}

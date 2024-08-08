@@ -408,6 +408,25 @@ export const ArrowRight = (color) => {
   </svg>`;
   return svgToDataUrl(svgContent);
 };
+export const FlagSvg = (color) => {
+  const svgContent = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Urgent">
+<path id="Vector" d="M11.5833 4.58329L11.25 2.91663H3.75V17.0833H5.41667V11.25H10.0833L10.4167 12.9166H16.25V4.58329H11.5833Z" fill="${color}"/>
+</g>
+</svg>
+`;
+  return svgToDataUrl(svgContent);
+};
+
+export const UrgentSvg = (color) => {
+  const svgContent = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Urgent">
+<path id="Vector" d="M10.705 5.79L6.205 1.29C6.025 1.11 5.775 1 5.5 1H2C1.45 1 1 1.45 1 2V5.5C1 5.775 1.11 6.025 1.295 6.21L5.795 10.71C5.975 10.89 6.225 11 6.5 11C6.775 11 7.025 10.89 7.205 10.705L10.705 7.205C10.89 7.025 11 6.775 11 6.5C11 6.225 10.885 5.97 10.705 5.79ZM2.75 3.5C2.335 3.5 2 3.165 2 2.75C2 2.335 2.335 2 2.75 2C3.165 2 3.5 2.335 3.5 2.75C3.5 3.165 3.165 3.5 2.75 3.5Z" fill="${color}"/>
+</g>
+</svg>
+`;
+  return svgToDataUrl(svgContent);
+};
 export const downArrow = (color) => {
   const svgContent = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Icon / Chevron">

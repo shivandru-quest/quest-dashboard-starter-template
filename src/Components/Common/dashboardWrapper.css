@@ -637,6 +637,8 @@ input:checked + .slider2:before {
   transform: rotate(180deg);
 }
 
+
+
 /*Compressed nav code*/
 
 .s_nav_container_compressed {

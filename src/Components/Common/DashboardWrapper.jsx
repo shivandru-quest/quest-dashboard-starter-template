@@ -14,7 +14,7 @@ import SearchComponents from "./SearchComponents";
 import SurveyComponents from "./SurveyComponents";
 import Cookies from "universal-cookie";
 import HelphubComponent from "./HelphubComponent";
-
+import axios from "axios";
 export default function DashboardWrapper({ children, selectdRoute }) {
   const [openPopup, setOpenPopup] = useState(false);
   const [quesNoFeed, setQuesNoFeed] = useState(1);
@@ -32,15 +32,22 @@ export default function DashboardWrapper({ children, selectdRoute }) {
       setActivePath(path);
     }
   };
-  function getUser() {
-    const userAnswers = localStorage.getItem("UserAnswers");
-    if (userAnswers) {
-      const paprsedData = JSON.parse(userAnswers);
-      setUser(paprsedData);
-    } else {
-      navigate("/login");
+  async function getUser() {
+    try {
+      const userAnswers = localStorage.getItem("UserAnswers");
+      if (userAnswers) {
+        const paprsedData = JSON.parse(userAnswers);
+        setUser(paprsedData);
+        let res = await axios.post(`http://localhost:3001/user/register`, paprsedData);
+        console.log("Response:", res);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error", error);
     }
   }
+  console.log("user", user);
   const userName = user
     ? user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1)
     : "";

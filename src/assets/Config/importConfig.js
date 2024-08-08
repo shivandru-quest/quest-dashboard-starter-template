@@ -30,6 +30,15 @@ import homeLogo from "../Images/home.svg";
 import runLogo from "../Images/run.svg";
 import brandLogo2 from "../Images/brandLogo2.png";
 import arrowDown from "../Images/arrowDown.svg";
+import projectPageLogo from "../Images/projectPageLogo.png";
+import calenderSvg from "../Images/calendar_month.svg";
+import cancelLogo from "../Images/cancel.svg";
+import editSvg from "../Images/editSvg.svg";
+import flagSvg from "../Images/flagSvg.svg";
+import uploadSvg from "../Images/uploadSvg.svg";
+import sprintPoint from "../Images/Low.svg";
+import deleteIcon from "../Images/Normal.svg";
+import urgentTag from "../Images/Urgent.svg";
 export const importConfig = {
   brandLogo: brandLogo,
   brandLogo2: brandLogo2,
@@ -46,6 +55,17 @@ export const importConfig = {
     homeLogo,
     runLogo,
     arrowDown,
+  },
+  project: {
+    projectPageLogo,
+    calenderSvg,
+    cancelLogo,
+    editSvg,
+    flagSvg,
+    uploadSvg,
+    sprintPoint,
+    deleteIcon,
+    urgentTag,
   },
   settings: {
     userImage,

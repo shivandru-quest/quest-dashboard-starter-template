@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { importConfig } from "../assets/Config/importConfig";
 import CustomDropdown from "./CustomDropdown";
 import DatePicker from "react-datepicker";
@@ -129,7 +129,7 @@ const tagOptions = [
 //       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 //   },
 // ];
-const ProjectModal = ({ isOpen, onClose }) => {
+const ProjectModal = ({ isOpen, onClose,users }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [formData, setFormData] = useState({
     title: "",
@@ -142,21 +142,9 @@ const ProjectModal = ({ isOpen, onClose }) => {
     description: "",
     attachment: null,
   });
-  const [users, setUser] = useState([]);
+
   const inpRef = useRef(null);
 
-  async function getAssignees() {
-    try {
-      let res = await axios.get(`http://localhost:3001/user/`);
-      setUser(res.data.users);
-    } catch (error) {
-      console.error("Error", error.message);
-    }
-  }
-  useEffect(() => {
-    getAssignees();
-  }, []);
-  console.log(users);
   const teamMembers = users?.map((user) => ({
     value: user._id,
     label: user.firstname,

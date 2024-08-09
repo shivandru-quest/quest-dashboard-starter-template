@@ -1,10 +1,49 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../Components/Common/AppContext";
 import { importConfig } from "../assets/Config/importConfig";
 import ProjectModal from "./ProjectModal";
+import axios from "axios";
 const Projects = () => {
   const { theme, bgColors, appConfig } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [users, setUser] = useState([]);
+  const [projectData, setProjectData] = useState([]);
+  async function getAssignees() {
+    try {
+      let res = await axios.get(`http://localhost:3001/user/`);
+      setUser(res.data.users);
+    } catch (error) {
+      console.error("Error", error.message);
+    }
+  }
+  async function getProjects() {
+    try {
+      const userAnswers = localStorage.getItem("UserAnswers");
+      let role;
+      let userid;
+      if (userAnswers) {
+        const parsedData = JSON.parse(userAnswers);
+        const matchedUser = users?.find((el) => el.email === parsedData.email);
+        if (matchedUser) {
+          role = matchedUser.role;
+          userid = matchedUser._id;
+        }
+      }
+      let res = await axios.get(
+        `http://localhost:3001/projects/?role=${role}&userid=${userid}`
+      );
+      setProjectData(res.data.projects);
+    } catch (error) {
+      console.error("Error", error.message);
+    }
+  }
+  useEffect(() => {
+    getAssignees();
+  }, []);
+  useEffect(() => {
+    getProjects();
+  }, [users]);
+  console.log(projectData);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
@@ -61,7 +100,11 @@ const Projects = () => {
           </button>
         </div>
       </div>
-      <ProjectModal isOpen={isModalOpen} onClose={closeModal}></ProjectModal>
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        users={users}
+      ></ProjectModal>
     </div>
   );
 };

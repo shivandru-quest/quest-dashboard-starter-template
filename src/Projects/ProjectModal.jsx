@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { importConfig } from "../assets/Config/importConfig";
 import CustomDropdown from "./CustomDropdown";
 import DatePicker from "react-datepicker";
@@ -31,14 +31,16 @@ const priorityOptions = [
     value: "urgent",
     label: "Urgent",
     fill: "#ED0A34",
-    className: "",
+    className:
+      "text-center text-[#535353] font-[400] leading-[1rem] text-[0.75rem]",
     svgIcon: FlagSvg("#ED0A34"),
   },
   {
     value: "high",
     label: "High",
     fill: "#FF9E00",
-    className: "",
+    className:
+      "text-center text-[#535353] font-[400] leading-[1rem] text-[0.75rem]",
     svgIcon: FlagSvg("#FF9E00"),
   },
 
@@ -46,14 +48,16 @@ const priorityOptions = [
     value: "normal",
     label: "Normal",
     fill: "#3542FF",
-    className: "",
+    className:
+      "text-center text-[#535353] font-[400] leading-[1rem] text-[0.75rem]",
     svgIcon: FlagSvg("#3542FF"),
   },
   {
     value: "low",
     label: "Low",
     fill: "#979797",
-    className: "",
+    className:
+      "text-center text-[#535353] font-[400] leading-[1rem] text-[0.75rem]",
     svgIcon: FlagSvg("#979797"),
   },
 ];
@@ -62,64 +66,69 @@ const tagOptions = [
     value: "research",
     label: "Research",
     fill: "#8090FF",
-    className: "",
+    className:
+      "text-[#8090FF] text-center font-[700] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem] bg-[#E1E1FB]",
     svgIcon: UrgentSvg("#8090FF"),
   },
   {
     value: "design",
     label: "Design",
     fill: "#00C16A",
-    className: "",
+    className:
+      "text-[#00C16A] text-center font-[700] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem] bg-[#C2F0D9]",
     svgIcon: UrgentSvg("#00C16A"),
   },
   {
     value: "review",
     label: "Review",
     fill: "#42B2B3",
-    className: "",
+    className:
+      "text-[#42B2B3] text-center font-[700] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem] bg-[#D9EFF0]",
     svgIcon: UrgentSvg("#42B2B3"),
   },
   {
     value: "code",
     label: "Code",
     fill: "#FF9E00",
-    className: "",
+    className:
+      "text-[#FF9E00] text-center font-[700] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem] bg-[#FFEBCC]",
     svgIcon: UrgentSvg("#FF9E00"),
   },
   {
     value: "testing",
     label: "Testing",
     fill: "#F57189",
-    className: "",
+    className:
+      "text-[#F57189] text-center font-[700] text-[0.625rem] leading-[0.75rem] tracking-[-0.00625rem] bg-[#FED8DF]",
     svgIcon: UrgentSvg("#F57189"),
   },
 ];
-const teamMembers = [
-  {
-    value: "1",
-    label: "Bruce Banner",
-    avatar:
-      "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    value: "2",
-    label: "Black Widow",
-    avatar:
-      "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    value: "3",
-    label: "Steve Roggers",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80",
-  },
-  {
-    value: "4",
-    label: "Tony Stark",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
+// const teamMembers = [
+//   {
+//     value: "1",
+//     label: "Bruce Banner",
+//     avatar:
+//       "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+//   {
+//     value: "2",
+//     label: "Black Widow",
+//     avatar:
+//       "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+//   {
+//     value: "3",
+//     label: "Steve Roggers",
+//     avatar:
+//       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80",
+//   },
+//   {
+//     value: "4",
+//     label: "Tony Stark",
+//     avatar:
+//       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+// ];
 const ProjectModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [formData, setFormData] = useState({
@@ -133,8 +142,28 @@ const ProjectModal = ({ isOpen, onClose }) => {
     description: "",
     attachment: null,
   });
+  const [users, setUser] = useState([]);
   const inpRef = useRef(null);
-  if (!isOpen) return null;
+
+  async function getAssignees() {
+    try {
+      let res = await axios.get(`http://localhost:3001/user/`);
+      setUser(res.data.users);
+    } catch (error) {
+      console.error("Error", error.message);
+    }
+  }
+  useEffect(() => {
+    getAssignees();
+  }, []);
+  console.log(users);
+  const teamMembers = users?.map((user) => ({
+    value: user._id,
+    label: user.firstname,
+    avatar:
+      user.avatar ||
+      "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  }));
   const handleAssigneeChange = (selectedAssignees) => {
     setFormData((prevState) => ({ ...prevState, assignee: selectedAssignees }));
   };
@@ -162,6 +191,9 @@ const ProjectModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    const assigneeObjectIds = formData.assignee.map(
+      (assignee) => assignee.value
+    );
     const formDataObj = new FormData();
     formDataObj.append("title", formData.title);
     formDataObj.append(
@@ -179,7 +211,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
       typeof formData.tag === "string" ? formData.tag : ""
     );
     formDataObj.append("description", formData.description);
-    formDataObj.append("assignee", JSON.stringify(formData.assignee));
+    formDataObj.append("assignee", JSON.stringify(assigneeObjectIds));
     if (formData.attachment) {
       formDataObj.append("attachment", formData.attachment);
     }
@@ -198,6 +230,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
       console.error("An error occurred while submitting the form:", error);
     }
   };
+  if (!isOpen) return null;
   return (
     <div
       className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-[1000]"
@@ -263,7 +296,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                           type="text"
                           name="sprintPoints"
                           id="sprintPoints"
-                          className="w-20 bg-[#1C1C1C0D] rounded-lg p-2"
+                          className="w-20 bg-[#1C1C1C0D] text-[#535353] rounded-lg p-2"
                           value={formData.sprintPoints}
                           onChange={handleInputChange}
                         />

@@ -14,7 +14,7 @@ const CustomDropdown = ({ options = [] }) => {
     );
     setSelected(selectedOption);
   };
-  
+
   return (
     <div className="relative inline-block w-full">
       <button
@@ -34,18 +34,18 @@ const CustomDropdown = ({ options = [] }) => {
       <select
         value={selected.value}
         onChange={handleChange}
-        className="w-full h-[1.25remF] opacity-0 absolute top-0 left-0 cursor-pointer"
+        className="w-full h-[1.25rem] opacity-0 absolute top-0 left-0 cursor-pointer"
       >
         {options?.map((option, i) => (
           <option key={i} value={option.value} className={option.className}>
             {option.svgIcon && (
-              <img
-                src={option.svgIcon}
-                alt={option.label}
-                className="inline-block mr-2"
-                width="12"
-                height="12"
-              />
+                <img
+                  src={option.svgIcon}
+                  alt={option.label}
+                  className="inline-block mr-2"
+                  width="12"
+                  height="12"
+                />
             )}
             {option.label}
           </option>

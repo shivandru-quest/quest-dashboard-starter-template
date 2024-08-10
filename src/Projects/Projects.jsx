@@ -3,21 +3,24 @@ import { ThemeContext } from "../Components/Common/AppContext";
 import { importConfig } from "../assets/Config/importConfig";
 import ProjectModal from "./ProjectModal";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 const Projects = () => {
   const { theme, bgColors, appConfig } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUser] = useState([]);
   const [projectData, setProjectData] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState({
     total: 0,
-    currentPage: 1,
-    itemsPerPage: 3,
+    currentPage: Number(searchParams.get("page")) || 1,
+    itemsPerPage: Number(searchParams.get("limit")) || 3,
     totalPages: 0,
   });
   const [sortOptions, setSortOptions] = useState({
-    sortBy: "priority",
-    sortOrder: "asc",
+    sortBy: searchParams.get("sortBy") || "priority",
+    sortOrder: searchParams.get("sortOrder") || "asc",
   });
+
   async function getAssignees() {
     try {
       let res = await axios.get(`http://localhost:3001/user/`);
@@ -62,8 +65,27 @@ const Projects = () => {
     page.itemsPerPage,
     sortOptions.sortBy,
     sortOptions.sortOrder,
+    searchParams,
     users,
   ]);
+  useEffect(() => {
+    setSearchParams({
+      page: page.currentPage,
+      limit: page.itemsPerPage,
+      sortBy: sortOptions.sortBy,
+      sortOrder: sortOptions.sortOrder,
+    });
+  }, [
+    page.currentPage,
+    page.itemsPerPage,
+    sortOptions.sortBy,
+    sortOptions.sortOrder,
+    setSearchParams,
+  ]);
+  const handleProjectCreation = () => {
+    getProjects();
+    closeModal();
+  };
   const handlePageChange = (newPage) => {
     setPagination((prev) => ({ ...prev, currentPage: newPage }));
   };
@@ -189,7 +211,8 @@ const Projects = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         users={users}
-      ></ProjectModal>
+        onProjectCreate={handleProjectCreation}
+      />
     </div>
   );
 };

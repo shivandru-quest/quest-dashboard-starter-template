@@ -130,14 +130,14 @@ export default function DashboardWrapper({ children, selectdRoute }) {
         />
       </button>
       {/* <FeedbackButton /> */}
-      <HelphubComponent />
+      {/* <HelphubComponent /> */}
 
-      {openPopup && <ReferralPopup setOpenPopup={() => setOpenPopup(false)} />}
-      <SearchComponents />
+      {/* {openPopup && <ReferralPopup setOpenPopup={() => setOpenPopup(false)} />} */}
+      {/* <SearchComponents /> */}
 
-      {showFeedbackSection && (
+      {/* {showFeedbackSection && (
         <SurveyComponents closeSurveyPopup={closeSurveyPopup} />
-      )}
+      )} */}
 
       <nav
         className={`s_nav_container ${

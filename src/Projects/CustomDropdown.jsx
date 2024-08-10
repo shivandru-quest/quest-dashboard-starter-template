@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CustomDropdown = ({ options = [] }) => {
+const CustomDropdown = ({ options = [], onChange }) => {
   const [selected, setSelected] = useState(options[0] || {});
 
   useEffect(() => {
@@ -13,6 +13,9 @@ const CustomDropdown = ({ options = [] }) => {
       (option) => option.value === event.target.value
     );
     setSelected(selectedOption);
+    if (onChange) {
+      onChange(selectedOption);
+    }
   };
 
   return (
@@ -39,13 +42,13 @@ const CustomDropdown = ({ options = [] }) => {
         {options?.map((option, i) => (
           <option key={i} value={option.value} className={option.className}>
             {option.svgIcon && (
-                <img
-                  src={option.svgIcon}
-                  alt={option.label}
-                  className="inline-block mr-2"
-                  width="12"
-                  height="12"
-                />
+              <img
+                src={option.svgIcon}
+                alt={option.label}
+                className="inline-block mr-2"
+                width="12"
+                height="12"
+              />
             )}
             {option.label}
           </option>

@@ -103,33 +103,8 @@ const tagOptions = [
     svgIcon: UrgentSvg("#F57189"),
   },
 ];
-// const teamMembers = [
-//   {
-//     value: "1",
-//     label: "Bruce Banner",
-//     avatar:
-//       "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-//   },
-//   {
-//     value: "2",
-//     label: "Black Widow",
-//     avatar:
-//       "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-//   },
-//   {
-//     value: "3",
-//     label: "Steve Roggers",
-//     avatar:
-//       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80",
-//   },
-//   {
-//     value: "4",
-//     label: "Tony Stark",
-//     avatar:
-//       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-//   },
-// ];
-const ProjectModal = ({ isOpen, onClose,users }) => {
+
+const ProjectModal = ({ isOpen, onClose, users, onProjectCreate }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [formData, setFormData] = useState({
     title: "",
@@ -161,7 +136,8 @@ const ProjectModal = ({ isOpen, onClose,users }) => {
   };
 
   const handleDropdownChange = (key) => (option) => {
-    setFormData((prevState) => ({ ...prevState, [key]: option }));
+    console.log(`Updating from dropdown ${key} to`, option.value);
+    setFormData((prevState) => ({ ...prevState, [key]: option.value }));
   };
 
   const handleDateChange = (date) => {
@@ -178,7 +154,7 @@ const ProjectModal = ({ isOpen, onClose,users }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("FormData before submit:", formData);
     const assigneeObjectIds = formData.assignee.map(
       (assignee) => assignee.value
     );
@@ -213,7 +189,8 @@ const ProjectModal = ({ isOpen, onClose,users }) => {
           },
         }
       );
-      console.log(response.data);
+      onProjectCreate();
+      console.log("formDataObj", formDataObj);
     } catch (error) {
       console.error("An error occurred while submitting the form:", error);
     }
@@ -316,7 +293,7 @@ const ProjectModal = ({ isOpen, onClose,users }) => {
                           Assignee
                         </div>
 
-                        <div class="flex -space-x-1 overflow-hidden">
+                        <div className="flex -space-x-1 overflow-hidden">
                           {formData.assignee.map((option) => (
                             <img
                               key={option.value}

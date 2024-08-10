@@ -18,6 +18,7 @@ import Dashboard from "../../Dashboard/Dashboard";
 import Sprints from "../../Sprints/Sprints";
 import Projects from "../../Projects/Projects";
 import Home from "../../Components/Home/Home";
+import ProjectDetails from "../../Projects/ProjectDetails";
 export const routesConfig = [
   {
     path: "/login",
@@ -126,6 +127,18 @@ export const routesConfig = [
     ),
     hidden: false,
     isUpper: true,
+  },
+  {
+    path: "/projectDetails/:id",
+    component: (
+      <ProviderConfig showTag={false}>
+        <DashboardWrapper selectdRoute={"projectDetails"}>
+          <ProjectDetails />
+        </DashboardWrapper>
+      </ProviderConfig>
+    ),
+    hidden: true,
+    isUpper: false,
   },
   {
     path: "/settings",

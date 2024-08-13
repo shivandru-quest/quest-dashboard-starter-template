@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FlagSvg, UrgentSvg } from "../Components/Common/SideBarSvg";
 import SearchableMultiSelect from "./SearchableMultiSelect";
 import axios from "axios";
-const projectStatusoptions = [
+export const projectStatusoptions = [
   {
     value: "todo",
     label: "To Do",
@@ -26,7 +26,7 @@ const projectStatusoptions = [
       "text-[#0DC268] bg-[#C2F0D9] text-[0.625rem] font-[700] leading-[0.75rem] tracking-[-0.00625rem] text-center px-[12px] py-[4px]",
   },
 ];
-const priorityOptions = [
+export const priorityOptions = [
   {
     value: "urgent",
     label: "Urgent",
@@ -61,7 +61,7 @@ const priorityOptions = [
     svgIcon: FlagSvg("#979797"),
   },
 ];
-const tagOptions = [
+export const tagOptions = [
   {
     value: "research",
     label: "Research",
@@ -136,7 +136,6 @@ const ProjectModal = ({ isOpen, onClose, users, onProjectCreate }) => {
   };
 
   const handleDropdownChange = (key) => (option) => {
-    console.log(`Updating from dropdown ${key} to`, option.value);
     setFormData((prevState) => ({ ...prevState, [key]: option.value }));
   };
 
@@ -154,7 +153,6 @@ const ProjectModal = ({ isOpen, onClose, users, onProjectCreate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("FormData before submit:", formData);
     const assigneeObjectIds = formData.assignee.map(
       (assignee) => assignee.value
     );

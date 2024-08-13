@@ -76,6 +76,9 @@ export default function Settings() {
           {section === "edit" ? <EditProfile /> : <AdminComponent />}
         </div>
       </div>
+
+
+      
     </div>
   );
 }

@@ -129,7 +129,7 @@ export const routesConfig = [
     isUpper: true,
   },
   {
-    path: "/projectDetails/:id",
+    path: "/project/:id",
     component: (
       <ProviderConfig showTag={false}>
         <DashboardWrapper selectdRoute={"projectDetails"}>
